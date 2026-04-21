@@ -30,7 +30,7 @@ export default {
   openaiSdk: "OpenAI SDK",
   home: "Home",
   updating: "Updating…",
-  installHermes: "Install Hermes",
+  installHermes: "Install PoH",
   installing: "Installing…",
   upToDate: "Up to date",
   updateEngine: "Update Engine",
@@ -44,7 +44,7 @@ export default {
     "Old OpenClaw config found. Migrate to PoH? Path: {{path}}",
   dontShowAgain: "Don't show again",
   migrating: "Migrating…",
-  migrateToHermes: "Migrate to PoH",
+  migrateToPoH: "Migrate to PoH",
   skip: "Skip",
 
   // 外观

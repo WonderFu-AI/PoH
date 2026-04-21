@@ -1,6 +1,6 @@
 export default {
   title: "记忆",
-  subtitle: "Hermes 在不同会话中关于您和您的环境的记忆。",
+  subtitle: "PoH 在不同会话中关于您和您的环境的记忆。",
   sessions: "会话",
   messages: "消息",
   memories: "记忆",
@@ -11,7 +11,7 @@ export default {
   addFailed: "添加失败",
   updateFailed: "更新失败",
   saveFailed: "保存失败",
-  noMemories: "还没有记忆。Hermes 会在聊天时保存重要的事实。",
+  noMemories: "还没有记忆。PoH 会在聊天时保存重要的事实。",
   noMemoriesHint: "也可以使用上方的按钮手动添加记忆。",
   reset: "重置",
   resetConfirm: "确定要删除这条记忆吗？",
@@ -30,6 +30,6 @@ export default {
   activating: "启用中...",
   active: "已启用",
   openProviderWebsite: "打开提供商网站",
-  profileHint: "告诉 Hermes 关于你自己的信息 - 姓名、角色、偏好、沟通风格。",
+  profileHint: "告诉 PoH 关于你自己的信息 - 姓名、角色、偏好、沟通风格。",
   profilePlaceholder: "例如：姓名：Alex。高级开发人员。喜欢简洁的回答。使用 macOS 和 zsh。时区：PST。",
 } as const;

@@ -121,7 +121,7 @@ function Settings({
     loadProfiles();
   }
 
-  // ── Hermes engine info ────────────────────────────────
+  // ── PoH engine info ────────────────────────────────
   const [hermesVersion, setHermesVersion] = useState<string | null>(
     getCachedVersion,
   );
@@ -470,7 +470,7 @@ function Settings({
               onClick={handleMigrate}
               disabled={migrating}
             >
-              {migrating ? t("settings.migrating") : t("settings.migrateToHermes")}
+              {migrating ? t("settings.migrating") : t("settings.migrateToPoH")}
             </button>
             <button
               className="btn btn-secondary"

@@ -434,10 +434,10 @@ export async function runInstall(
     const home = homedir();
     const isWindows = process.platform === "win32";
     const installCmd = isWindows
-      ? `irm https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.ps1 | iex`
+      ? `irm https://res1.hermesagent.org.cn/install.ps1 | iex`
       : [
           `source "${getShellProfile(home)}" 2>/dev/null;`,
-          `curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash -s -- --skip-setup`,
+          `curl -fsSL https://res1.hermesagent.org.cn/install.sh | bash -s -- --skip-setup`,
         ].join(" ");
 
     const shell = isWindows ? "powershell" : "bash";

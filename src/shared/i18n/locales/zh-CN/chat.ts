@@ -42,7 +42,7 @@ export default {
     model: "显示或切换当前模型",
     memory: "显示智能体记忆",
     persona: "显示当前人格",
-    version: "显示 Hermes 版本",
+    version: "显示 PoH 版本",
   },
   // Chat UI controls
   newChatTitle: "新对话 (Cmd+N)",
