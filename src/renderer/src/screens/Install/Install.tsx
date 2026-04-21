@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import { ArrowRight, Copy } from "../../assets/icons";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "../../assets/icons";
 import { useI18n } from "../../components/useI18n";
 
 interface InstallProgress {
@@ -17,7 +17,7 @@ interface InstallProps {
 
 function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
   const { t } = useI18n();
-  const [progress, setProgress] = useState<InstallProgress>({
+  const [progress] = useState<InstallProgress>({
     step: 0,
     totalSteps: 7,
     title: "Preparing...",
@@ -26,13 +26,9 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
   });
   const [done, setDone] = useState(false);
   const [failed, setFailed] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-  const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cleanup = window.hermesAPI.onInstallProgress((p) => {
-      setProgress(p);
-    });
+    const cleanup = window.hermesAPI.onInstallProgress(() => {});
 
     window.hermesAPI
       .startInstall()
@@ -40,39 +36,15 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
         if (result.success) {
           setDone(true);
         } else {
-          setFailed(
-            result.error ||
-              t('install.installationFailedHint'),
-          );
+          setFailed(result.error || t('install.installationFailedHint'));
         }
       })
       .catch((err) => {
-        setFailed(
-          err.message ||
-            t('install.installationFailedHint'),
-        );
+        setFailed(err.message || t('install.installationFailedHint'));
       });
 
     return cleanup;
-  }, []);
-
-  useEffect(() => {
-    if (logRef.current) {
-      logRef.current.scrollTop = logRef.current.scrollHeight;
-    }
-  }, [progress.log]);
-
-  function handleCopyLogs(): void {
-    const text = `Installation Error:\n${failed}\n\n--- Full Log ---\n${progress.log}`;
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
-
-  const percent =
-    progress.totalSteps > 0
-      ? Math.round((progress.step / progress.totalSteps) * 100)
-      : 0;
+  }, [t]);
 
   return (
     <div className="screen install-screen">
@@ -88,44 +60,33 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
         <div className="install-progress-bar">
           <div
             className={`install-progress-fill ${failed ? "install-progress-fill--error" : ""} ${!done && !failed ? "install-progress-fill--indeterminate" : ""}`}
-            style={{ width: `${done ? 100 : percent}%` }}
+            style={{ width: done ? "100%" : "100%" }}
           />
         </div>
-        <div className="install-percent">{done ? "100" : percent}%</div>
       </div>
+
+      {!done && !failed && (
+        <p className="install-step-detail" style={{ textAlign: "center", marginTop: "12px" }}>
+          正在安装，可能需要稍等几分钟
+        </p>
+      )}
 
       {failed && (
         <div className="install-error-banner">
           <p className="install-error-text">{failed}</p>
           <div className="install-error-actions">
-            <button className="btn btn-primary btn-sm" onClick={() => {
-              setFailed(null);
-              setProgress({ step: 0, totalSteps: 7, title: "Preparing...", detail: "Starting installation", log: "" });
-              // Re-trigger install via parent
-              onFailed(failed);
-            }}>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                setFailed(null);
+                onFailed(failed || "");
+              }}
+            >
               {t('install.retryInstallation')}
             </button>
-            <button className="btn btn-secondary btn-sm" onClick={handleCopyLogs}>
-              <Copy size={13} />
-              {copied ? t('install.copied') : t('install.copyLogs')}
-            </button>
           </div>
         </div>
       )}
-
-      {!done && !failed && (
-        <div className="install-step-info">
-          <div className="install-step-title">
-            Step {progress.step}/{progress.totalSteps}: {progress.title}
-          </div>
-          <div className="install-step-detail">{progress.detail}</div>
-        </div>
-      )}
-
-      <div className="install-log" ref={logRef} style={{ display: "none" }}>
-        {progress.log || t('install.waitingToStart')}
-      </div>
 
       {done && (
         <div className="install-done">

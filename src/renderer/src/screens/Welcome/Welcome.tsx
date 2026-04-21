@@ -1,4 +1,4 @@
-import icon from "../../assets/icon.png";
+import icon from "../../assets/poh-logo.png";
 import { ArrowRight, Refresh, Copy } from "../../assets/icons";
 import { INSTALL_CMD } from "../../constants";
 import { useI18n } from "../../components/useI18n";

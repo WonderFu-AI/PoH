@@ -3,11 +3,10 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Welcome from "./screens/Welcome/Welcome";
 import Install from "./screens/Install/Install";
-import Setup from "./screens/Setup/Setup";
 import Layout from "./screens/Layout/Layout";
 import SplashScreen from "./screens/SplashScreen/SplashScreen";
 
-type Screen = "splash" | "welcome" | "installing" | "setup" | "main";
+type Screen = "splash" | "welcome" | "installing" | "main";
 
 function App(): React.JSX.Element {
   const [screen, setScreen] = useState<Screen>("splash");
@@ -27,8 +26,6 @@ function App(): React.JSX.Element {
             "Hermes is installed but appears to be broken. Try reinstalling to fix it.",
           );
           setNextScreen("welcome");
-        } else if (!status.hasApiKey) {
-          setNextScreen("setup");
         } else {
           setNextScreen("main");
         }
@@ -56,7 +53,7 @@ function App(): React.JSX.Element {
 
   function handleInstallComplete(): void {
     setInstallError(null);
-    setScreen("setup");
+    setScreen("main");
   }
 
   function handleInstallFailed(error: string): void {
@@ -96,8 +93,6 @@ function App(): React.JSX.Element {
             onFailed={handleInstallFailed}
           />
         );
-      case "setup":
-        return <Setup onComplete={() => setScreen("main")} />;
       case "main":
         return <Layout />;
     }
