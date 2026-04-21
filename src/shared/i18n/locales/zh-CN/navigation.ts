@@ -1,0 +1,32 @@
+export default {
+  chat: "聊天",
+  sessions: "历史会话",
+  agents: "配置",
+  office: "Office",
+  models: "模型",
+  skills: "技能",
+  soul: "人格",
+  memory: "记忆",
+  tools: "工具",
+  schedules: "定时任务",
+  gateway: "外接平台",
+  settings: "设置",
+  // Sidebar group labels
+  sidebar: {
+    chat: "对话",
+    history: "历史记录",
+    settings: "设置",
+    aiCapabilities: "AI 能力",
+    advanced: "高级",
+    // Sub-items
+    general: "通用",
+    profiles: "配置",
+    models: "模型",
+    gateway: "外接平台",
+    skills: "技能",
+    persona: "人格",
+    memory: "记忆",
+    tools: "工具",
+    schedules: "定时任务",
+  },
+} as const;

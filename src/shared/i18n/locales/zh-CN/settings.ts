@@ -1,0 +1,113 @@
+export default {
+  title: "设置",
+  sections: {
+    hermesAgent: "关于 PoH",
+    appearance: "外观",
+    credentialPool: "凭证池",
+  },
+  theme: {
+    label: "主题",
+    system: "跟随系统",
+    light: "浅色",
+    dark: "深色",
+  },
+  notDetected: "未检测到",
+  notAvailable: "—",
+  saved: "已保存",
+  updatedSuccessfully: "更新成功！",
+  updateFailed: "更新失败。",
+  migrationComplete: "迁移完成！您的配置、密钥和数据已导入。",
+  migrationFailed: "迁移失败。",
+  logsExpanded: "▾",
+  logsCollapsed: "▸",
+
+  // Hermes Agent 信息
+  engine: "Hermes 版本",
+  released: "发布日期",
+  desktop: "桌面版",
+  python: "Python",
+  openaiSdk: "OpenAI SDK",
+  home: "主目录",
+  updating: "更新中…",
+  installHermes: "安装 Hermes",
+  installing: "安装中…",
+  upToDate: "已是最新",
+  updateEngine: "更新 Hermes",
+  runDoctor: "运行诊断",
+  debugDump: "调试转储",
+  running: "运行中…",
+
+  // OpenClaw 迁移
+  openClawDetected: "检测到 OpenClaw",
+  openClawDesc: "发现旧版 OpenClaw 配置，是否迁移至 PoH？路径：{{path}}",
+  dontShowAgain: "不再显示",
+  migrating: "迁移中…",
+  migrateToHermes: "迁移至 PoH",
+  skip: "跳过",
+
+  // 外观
+  chooseTheme: "选择主题后立即生效",
+  language: "语言",
+  english: "English",
+  chinese: "中文",
+  chooseLanguage: "选择界面显示语言",
+
+  // 网络
+  network: "网络",
+  forceIPv4: "强制使用 IPv4",
+  forceIPv4Hint: "启用后将优先使用 IPv4 连接",
+  httpProxy: "HTTP 代理",
+  httpProxyPlaceholder: "http://127.0.0.1:7890",
+  httpProxyHint: "留空则不使用代理",
+
+  // 模型
+  model: "模型",
+  provider: {
+    label: "服务商",
+    auto: "自动检测",
+    openrouter: "OpenRouter",
+    anthropic: "Anthropic",
+    openai: "OpenAI",
+    google: "Google AI Studio",
+    xai: "xAI (Grok)",
+    nous: "Nous Portal",
+    qwen: "Qwen",
+    minimax: "MiniMax",
+    custom: "本地 / 自定义",
+  },
+  providerHint: "选择 AI 服务商",
+  customProviderHint: "使用自定义 API 地址",
+  modelName: "模型名称",
+  modelNamePlaceholder: "如：gpt-4o-mini",
+  modelNameHint: "输入模型名称，如 gpt-4o-mini、claude-3-haiku 等",
+  baseURL: "API 地址",
+  baseURLPlaceholder: "http://localhost:1234/v1",
+  baseURLHint: "自定义服务商的 API 端点",
+
+  // 凭证池
+  credentialPool: "凭证池",
+  credPoolHint: "为每个服务商添加多个 API Key，PoH 将自动轮换使用",
+  labelOptional: "备注（可选）",
+  apiKey: "API Key",
+  add: "添加",
+  keyN: "Key {{n}}",
+  empty: "空",
+  remove: "删除",
+
+  // 数据
+  data: "数据",
+  dataHint: "导出或导入 PoH 的完整备份",
+  exportBackup: "导出备份",
+  backingUp: "导出中…",
+  importBackup: "导入备份",
+  importing: "导入中…",
+
+  // 日志
+  logs: "日志",
+  gateway: "网关",
+  agent: "代理",
+  errors: "错误",
+  refresh: "刷新",
+  show: "显示",
+  hide: "隐藏",
+} as const;

@@ -1,0 +1,32 @@
+export default {
+  chat: "Chat",
+  sessions: "Sessions",
+  agents: "Profiles",
+  office: "Office",
+  models: "Models",
+  skills: "Skills",
+  soul: "Persona",
+  memory: "Memory",
+  tools: "Tools",
+  schedules: "Schedules",
+  gateway: "External Platforms",
+  settings: "Settings",
+  // Sidebar group labels
+  sidebar: {
+    chat: "Chat",
+    history: "History",
+    settings: "Settings",
+    aiCapabilities: "AI Capabilities",
+    advanced: "Advanced",
+    // Sub-items
+    general: "General",
+    profiles: "Profiles",
+    models: "Models",
+    gateway: "External Platforms",
+    skills: "Skills",
+    persona: "Persona",
+    memory: "Memory",
+    tools: "Tools",
+    schedules: "Schedules",
+  },
+} as const;

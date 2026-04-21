@@ -1,0 +1,33 @@
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Electron packaging artifacts
+release/
+.claude/worktrees
+
+# Claude Code agent files
+.agents/
+.claude/
+
+# ESLint cache
+.eslintcache
