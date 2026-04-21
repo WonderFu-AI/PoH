@@ -504,9 +504,14 @@ export async function runInstall(
 export function installDocsSkill(): void {
   // Resolve resources path (works in both dev and packaged app)
   const isDev = !process.env["ELECTRON_IS_PACKAGED"];
-  const resourceBase = isDev
-    ? join(__dirname, "..", "..", "resources")
-    : process.resourcesPath;
+
+  let resourceBase: string;
+  if (isDev) {
+    resourceBase = join(__dirname, "..", "..", "resources");
+  } else {
+    // In packaged app, resources are unpacked to app.asar.unpacked/resources/
+    resourceBase = join(process.resourcesPath, "app.asar.unpacked", "resources");
+  }
 
   const skillSrcDir = join(resourceBase, "poh-docs-skill");
   const docsSrcDir = join(resourceBase, "docs");
