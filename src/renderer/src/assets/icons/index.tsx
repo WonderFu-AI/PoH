@@ -2,6 +2,7 @@ export {
   ArrowRight,
   Bot,
   Brain,
+  BookOpen,
   Building,
   ChevronDown,
   ChevronRight,

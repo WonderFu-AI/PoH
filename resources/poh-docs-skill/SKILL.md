@@ -1,29 +1,6 @@
 ---
 name: poh-docs
-description: Official documentation search skill for Hermes Agent. Activates when users ask about Hermes features, setup, configuration, or usage. Searches the official docs and returns step-by-step guidance.
-triggers:
-  - "怎么用 hermes"
-  - "如何使用 hermes"
-  - "hermes 怎么设置"
-  - "hermes help"
-  - "hermes 入门"
-  - "hermes 安装"
-  - "hermes 配置"
-  - "hermes gateway"
-  - "hermes skills"
-  - "hermes memory"
-  - "hermes cron"
-  - "hermes schedule"
-  - "how to use hermes"
-  - "hermes setup"
-  - "hermes installation"
-  - "configure hermes"
-  - "hermes agent guide"
-  - "hermes documentation"
-  - "hermes 文档"
-  - "hermes 技能"
-  - "hermes 定时任务"
-  - "hermes 消息网关"
+description: Official documentation for Hermes Agent — installation, setup, configuration, skills, gateway, messaging platforms, cron/scheduling, memory, MCP tools, and all features. Load this skill whenever users ask about Hermes usage, Hermes configuration, or how to use any Hermes feature.
 ---
 
 # PoH Docs Skill — Hermes Agent 官方文档助手

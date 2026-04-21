@@ -8,6 +8,7 @@ import {
   dialog,
 } from "electron";
 import { join } from "path";
+import { existsSync, readFileSync } from "fs";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import type { AppUpdater } from "electron-updater";
 import icon from "../../resources/icon.png?asset";
@@ -516,6 +517,20 @@ function setupIPC(): void {
   ipcMain.handle("uninstall-skill", (_event, name: string, profile?: string) =>
     uninstallSkill(name, profile),
   );
+
+  // PoH Docs Skill (from app resources)
+  ipcMain.handle("install-docs-skill", () => {
+    installDocsSkill();
+    return { success: true };
+  });
+
+  ipcMain.handle("get-docs-skill-content", () => {
+    const resourcePath = is
+      ? join(process.resourcesPath, "poh-docs-skill", "SKILL.md")
+      : join(__dirname, "..", "..", "resources", "poh-docs-skill", "SKILL.md");
+    if (!existsSync(resourcePath)) return "";
+    return readFileSync(resourcePath, "utf-8");
+  });
 
   // Session cache (fast local cache with generated titles)
   ipcMain.handle(

@@ -221,6 +221,8 @@ interface HermesAPI {
     name: string,
     profile?: string,
   ) => Promise<{ success: boolean; error?: string }>;
+  installDocsSkill: () => Promise<{ success: boolean }>;
+  getDocsSkillContent: () => Promise<string>;
 
   // Session cache
   listCachedSessions: (

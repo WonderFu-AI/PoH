@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Search, X, Download, Trash, Refresh } from "../../assets/icons";
+import { Search, X, Download, Trash, Refresh, BookOpen } from "../../assets/icons";
 import { AgentMarkdown } from "../../components/AgentMarkdown";
 import { useI18n } from "../../components/useI18n";
 
@@ -38,9 +38,18 @@ function Skills({ profile }: SkillsProps): React.JSX.Element {
   const [error, setError] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
 
+  // PoH Docs Skill state
+  const [docsSkillInstalled, setDocsSkillInstalled] = useState(false);
+  const [docsSkillLoading, setDocsSkillLoading] = useState(false);
+
   const loadInstalled = useCallback(async (): Promise<void> => {
     const list = await window.hermesAPI.listInstalledSkills(profile);
     setInstalledSkills(list);
+    // Check if poh-docs is installed (path contains poh-docs under docs category)
+    const isInstalled = list.some(
+      (s) => s.category === "docs" && s.name === "poh-docs",
+    );
+    setDocsSkillInstalled(isInstalled);
   }, [profile]);
 
   const loadBundled = useCallback(async (): Promise<void> => {
@@ -87,6 +96,13 @@ function Skills({ profile }: SkillsProps): React.JSX.Element {
     } else {
       setError(result.error || "Failed to uninstall skill");
     }
+  }
+
+  async function handleInstallDocsSkill(): Promise<void> {
+    setDocsSkillLoading(true);
+    await window.hermesAPI.installDocsSkill();
+    await loadInstalled();
+    setDocsSkillLoading(false);
   }
 
   const installedNames = new Set(
@@ -201,6 +217,42 @@ function Skills({ profile }: SkillsProps): React.JSX.Element {
           </button>
         </div>
       )}
+
+      {/* PoH 专属技能 */}
+      <div className="poh-skill-banner">
+        <div className="poh-skill-banner-icon">
+          <BookOpen size={20} />
+        </div>
+        <div className="poh-skill-banner-content">
+          <div className="poh-skill-banner-label">PoH 专属</div>
+          <div className="poh-skill-banner-name">PoH 官方文档助手</div>
+          <div className="poh-skill-banner-desc">
+            集成 Hermes Agent 官方文档，涵盖安装、配置、技能、网关等全部指南。当您询问 Hermes 使用方法时，此技能自动激活。
+          </div>
+        </div>
+        <div className="poh-skill-banner-action">
+          {docsSkillInstalled ? (
+            <span className="skills-card-installed-badge">
+              {t("skills.installedBadge")}
+            </span>
+          ) : (
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={handleInstallDocsSkill}
+              disabled={docsSkillLoading}
+            >
+              {docsSkillLoading ? (
+                t("skills.installing")
+              ) : (
+                <>
+                  <Download size={13} />
+                  {t("skills.install")}
+                </>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="skills-tabs">
