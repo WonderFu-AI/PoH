@@ -2,14 +2,6 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "../../assets/icons";
 import { useI18n } from "../../components/useI18n";
 
-interface InstallProgress {
-  step: number;
-  totalSteps: number;
-  title: string;
-  detail: string;
-  log: string;
-}
-
 interface InstallProps {
   onComplete: () => void;
   onFailed: (error: string) => void;
@@ -17,19 +9,10 @@ interface InstallProps {
 
 function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
   const { t } = useI18n();
-  const [progress] = useState<InstallProgress>({
-    step: 0,
-    totalSteps: 7,
-    title: "Preparing...",
-    detail: "Starting installation",
-    log: "",
-  });
   const [done, setDone] = useState(false);
   const [failed, setFailed] = useState<string | null>(null);
 
   useEffect(() => {
-    const cleanup = window.hermesAPI.onInstallProgress(() => {});
-
     window.hermesAPI
       .startInstall()
       .then((result) => {
@@ -42,8 +25,6 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
       .catch((err) => {
         setFailed(err.message || t('install.installationFailedHint'));
       });
-
-    return cleanup;
   }, [t]);
 
   return (
@@ -60,7 +41,7 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
         <div className="install-progress-bar">
           <div
             className={`install-progress-fill ${failed ? "install-progress-fill--error" : ""} ${!done && !failed ? "install-progress-fill--indeterminate" : ""}`}
-            style={{ width: done ? "100%" : "100%" }}
+            style={{ width: "100%" }}
           />
         </div>
       </div>
