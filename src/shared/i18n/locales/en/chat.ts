@@ -43,7 +43,7 @@ export default {
     model: "Show or switch the current model",
     memory: "Show agent memory",
     persona: "Show current persona",
-    version: "Show PoH version",
+    version: "Show Hermes version",
   },
   // Chat UI controls
   newChatTitle: "New chat (Cmd+N)",

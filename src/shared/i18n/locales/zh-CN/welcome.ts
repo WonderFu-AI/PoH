@@ -1,5 +1,5 @@
 export default {
-  title: "欢迎使用 PoH",
+  title: "欢迎使用 Hermes",
   subtitle:
     "您的自改进 AI 助手，在本地运行。隐私保护、功能强大、持续学习。",
   installIssueTitle: "安装问题",

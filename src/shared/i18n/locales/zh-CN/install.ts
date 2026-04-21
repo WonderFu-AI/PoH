@@ -3,7 +3,7 @@ export default {
   startingInstall: "开始安装",
   installationComplete: "安装完成",
   installationFailed: "安装失败",
-  installingHermes: "正在安装 PoH",
+  installingHermes: "正在安装 Hermes Agent",
   installationFailedHint: "安装失败，请重试或通过终端安装。",
   retryInstallation: "重试安装",
   copied: "已复制！",

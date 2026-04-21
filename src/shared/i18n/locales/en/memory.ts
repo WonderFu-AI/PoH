@@ -1,7 +1,7 @@
 export default {
   title: "Memory",
   subtitle:
-    "What PoH remembers about you and your environment across sessions.",
+    "What Hermes remembers about you and your environment across sessions.",
   sessions: "Sessions",
   messages: "Messages",
   memories: "Memories",

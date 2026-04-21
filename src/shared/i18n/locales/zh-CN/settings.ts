@@ -22,17 +22,17 @@ export default {
   logsCollapsed: "▸",
 
   // Hermes Agent 信息
-  engine: "PoH 版本",
+  engine: "Hermes 版本",
   released: "发布日期",
   desktop: "桌面版",
   python: "Python",
   openaiSdk: "OpenAI SDK",
   home: "主目录",
   updating: "更新中…",
-  installHermes: "安装 PoH",
+  installHermes: "安装 Hermes",
   installing: "安装中…",
   upToDate: "已是最新",
-  updateEngine: "更新 PoH",
+  updateEngine: "更新 Hermes",
   runDoctor: "运行诊断",
   debugDump: "调试转储",
   running: "运行中…",
@@ -42,7 +42,7 @@ export default {
   openClawDesc: "发现旧版 OpenClaw 配置，是否迁移至 PoH？路径：{{path}}",
   dontShowAgain: "不再显示",
   migrating: "迁移中…",
-  migrateToPoH: "迁移至 PoH",
+  migrateToHermes: "迁移至 PoH",
   skip: "跳过",
 
   // 外观
