@@ -15,7 +15,6 @@ import icon from "../../resources/icon.png?asset";
 import {
   checkInstallStatus,
   runInstall,
-  installDocsSkill,
   getHermesVersion,
   clearVersionCache,
   runHermesDoctor,
@@ -192,8 +191,6 @@ function setupIPC(): void {
       await runInstall((progress: InstallProgress) => {
         event.sender.send("install-progress", progress);
       });
-      // Install the PoH Docs Skill and copy docs after Hermes installation
-      installDocsSkill();
       return { success: true };
     } catch (err) {
       return { success: false, error: (err as Error).message };

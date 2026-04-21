@@ -123,7 +123,7 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
         </div>
       )}
 
-      <div className="install-log" ref={logRef}>
+      <div className="install-log" ref={logRef} style={{ display: "none" }}>
         {progress.log || t('install.waitingToStart')}
       </div>
 
