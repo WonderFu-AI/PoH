@@ -1,10 +1,10 @@
 {
-  "name": "hermes-desktop",
+  "name": "poh-desktop",
   "version": "0.2.2",
-  "description": "Hermes Agent Desktop — self-improving AI assistant",
+  "description": "PoH Desktop — Palace of Hermes, a friendly AI agent client",
   "main": "./out/main/index.js",
-  "author": "fathah",
-  "homepage": "https://github.com/fathah/hermes-desktop",
+  "author": "WonderFu-AI",
+  "homepage": "https://github.com/WonderFu-AI/PoH",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",

@@ -13,8 +13,10 @@ asarUnpack:
   - resources/**
 win:
   executableName: PoH
+  zip:
+    artifactName: ${productName}-${version}-win.${ext}
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ${productName}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
@@ -23,6 +25,8 @@ mac:
   sign: false
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.inherit.plist
+  zip:
+    artifactName: ${productName}-${version}-${arch}.${ext}
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
@@ -30,7 +34,7 @@ mac:
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
   notarize: false
 dmg:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${productName}-${version}.${ext}
 linux:
   target:
     - AppImage
@@ -38,8 +42,10 @@ linux:
     - deb
   maintainer: electronjs.org
   category: Utility
+deb:
+  artifactName: ${productName}_${version}_${arch}.${ext}
 appImage:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${productName}-${version}.${ext}
 npmRebuild: false
 publish:
   provider: github
