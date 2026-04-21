@@ -302,7 +302,7 @@ function Layout(): React.JSX.Element {
             </button>
           )}
           <div className="sidebar-footer-text">
-            {activeProfile === "default" ? "Hermes Agent" : activeProfile}
+            {activeProfile === "default" ? t("common.appName") : activeProfile}
           </div>
         </div>
       </aside>
