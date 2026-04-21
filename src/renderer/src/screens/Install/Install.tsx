@@ -87,7 +87,7 @@ function Install({ onComplete, onFailed }: InstallProps): React.JSX.Element {
       <div className="install-progress-container">
         <div className="install-progress-bar">
           <div
-            className={`install-progress-fill ${failed ? "install-progress-fill--error" : ""}`}
+            className={`install-progress-fill ${failed ? "install-progress-fill--error" : ""} ${!done && !failed ? "install-progress-fill--indeterminate" : ""}`}
             style={{ width: `${done ? 100 : percent}%` }}
           />
         </div>

@@ -484,6 +484,15 @@ body {
   background: var(--error) !important;
 }
 
+@keyframes indeterminate-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.install-progress-fill--indeterminate {
+  animation: indeterminate-slide 1.5s ease-in-out infinite;
+}
+
 .install-error-banner {
   width: 100%;
   max-width: 620px;

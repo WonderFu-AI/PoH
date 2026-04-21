@@ -15,6 +15,7 @@ import icon from "../../resources/icon.png?asset";
 import {
   checkInstallStatus,
   runInstall,
+  installDocsSkill,
   getHermesVersion,
   clearVersionCache,
   runHermesDoctor,
