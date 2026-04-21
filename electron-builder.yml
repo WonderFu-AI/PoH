@@ -13,8 +13,6 @@ asarUnpack:
   - resources/**
 win:
   executableName: PoH
-  zip:
-    artifactName: ${productName}-${version}-win.${ext}
 nsis:
   artifactName: ${productName}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -25,8 +23,6 @@ mac:
   sign: false
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.inherit.plist
-  zip:
-    artifactName: ${productName}-${version}-${arch}.${ext}
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
