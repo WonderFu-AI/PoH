@@ -26,6 +26,23 @@ function maskApiKey(key: string): string {
   return `${key.slice(0, 4)}••••••••${key.slice(-4)}`;
 }
 
+// Provider → .env key name mapping
+const PROVIDER_API_KEYS: Record<string, string> = {
+  zhipu: "GLM_API_KEY",
+  minimax: "MINIMAX_API_KEY",
+  minimax_cn: "MINIMAX_CN_API_KEY",
+  deepseek: "DEEPSEEK_API_KEY",
+  kimi: "KIMI_API_KEY",
+  kimi_cn: "KIMI_CN_API_KEY",
+  xiaomi: "XIAOMI_API_KEY",
+  openai: "OPENAI_API_KEY",
+  anthropic: "ANTHROPIC_API_KEY",
+  openrouter: "OPENROUTER_API_KEY",
+  google: "GOOGLE_API_KEY",
+  xai: "XAI_API_KEY",
+  huggingface: "HF_TOKEN",
+};
+
 function Models({ profile }: { profile?: string }): React.JSX.Element {
   const { t } = useI18n();
   const [models, setModels] = useState<ModelConfig[]>([]);
@@ -160,6 +177,11 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
       baseUrlToSave,
       profile,
     );
+    // Sync API key to .env so Hermes can read it at runtime
+    const envKey = PROVIDER_API_KEYS[formProvider];
+    if (envKey) {
+      await window.hermesAPI.setEnv(envKey, formApiKey.trim(), profile);
+    }
     setCurrentProvider(formProvider);
     setCurrentModel(modelToSave);
     setCurrentBaseUrl(baseUrlToSave);
