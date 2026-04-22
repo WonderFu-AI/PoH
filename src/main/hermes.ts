@@ -11,6 +11,7 @@ import {
   getEnhancedPath,
 } from "./installer";
 import { getModelConfig, readEnv } from "./config";
+import { listModels } from "./models";
 import { stripAnsi } from "./utils";
 
 const API_URL = "http://127.0.0.1:8642";
@@ -134,8 +135,19 @@ function sendMessageViaApi(
   }
   messages.push({ role: "user", content: message });
 
+  // Resolve "auto" to the first saved model for this provider
+  let modelToSend = mc.model;
+  if (!modelToSend || modelToSend === "auto") {
+    const saved = listModels().filter((m) => m.provider === mc.provider);
+    if (saved.length > 0) {
+      modelToSend = saved[0].model || saved[0].name;
+    } else {
+      modelToSend = "hermes-agent";
+    }
+  }
+
   const body = JSON.stringify({
-    model: mc.model || "hermes-agent",
+    model: modelToSend,
     messages,
     stream: true,
   });

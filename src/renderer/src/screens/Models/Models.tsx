@@ -132,23 +132,38 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
     }
     setFormError("");
 
+    const modelToSave = formModel || "auto";
+    const baseUrlToSave = formBaseUrl.trim();
+
     if (editingModel) {
       await window.hermesAPI.updateModel(editingModel.id, {
         name: formName.trim() || providerLabel(formProvider, t),
         provider: formProvider,
-        model: formModel || "auto",
-        baseUrl: formBaseUrl.trim(),
+        model: modelToSave,
+        baseUrl: baseUrlToSave,
         apiKey: formApiKey.trim(),
       });
     } else {
       await window.hermesAPI.addModel(
         formName.trim() || providerLabel(formProvider, t),
         formProvider,
-        formModel || "auto",
-        formBaseUrl.trim(),
+        modelToSave,
+        baseUrlToSave,
         formApiKey.trim(),
       );
     }
+
+    // Also update the active config to match what was just saved
+    await window.hermesAPI.setModelConfig(
+      formProvider,
+      modelToSave,
+      baseUrlToSave,
+      profile,
+    );
+    setCurrentProvider(formProvider);
+    setCurrentModel(modelToSave);
+    setCurrentBaseUrl(baseUrlToSave);
+
     closeModal();
     await loadModels();
   }
