@@ -8,8 +8,9 @@ import { stripAnsi } from "./utils";
 export const HERMES_HOME = join(homedir(), ".hermes");
 export const HERMES_REPO = join(HERMES_HOME, "hermes-agent");
 export const HERMES_VENV = join(HERMES_REPO, "venv");
-export const HERMES_PYTHON = join(HERMES_VENV, "bin", "python");
-export const HERMES_SCRIPT = join(HERMES_REPO, "hermes");
+const _isWindows = process.platform === "win32";
+export const HERMES_PYTHON = join(HERMES_VENV, _isWindows ? "Scripts" : "bin", _isWindows ? "python.exe" : "python");
+export const HERMES_SCRIPT = join(HERMES_REPO, _isWindows ? "hermes.exe" : "hermes");
 export const HERMES_ENV_FILE = join(HERMES_HOME, ".env");
 export const HERMES_CONFIG_FILE = join(HERMES_HOME, "config.yaml");
 
@@ -30,10 +31,11 @@ export interface InstallProgress {
 
 export function getEnhancedPath(): string {
   const home = homedir();
+  const isWin = process.platform === "win32";
   const extra = [
     join(home, ".local", "bin"),
     join(home, ".cargo", "bin"),
-    join(HERMES_VENV, "bin"),
+    join(HERMES_VENV, isWin ? "Scripts" : "bin"),
     // Node version manager shim directories
     join(home, ".volta", "bin"),
     join(home, ".asdf", "shims"),
@@ -44,7 +46,7 @@ export function getEnhancedPath(): string {
     "/opt/homebrew/bin",
     "/opt/homebrew/sbin",
   ];
-  return [...extra, process.env.PATH || ""].join(":");
+  return [...extra, process.env.PATH || ""].join(isWin ? ";" : ":");
 }
 
 /** Resolve the active nvm node version's bin directory. */
