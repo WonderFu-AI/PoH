@@ -12,6 +12,7 @@ import {
   Paperclip,
   X,
 } from "lucide-react";
+import pohLogo from "../../assets/poh-logo.png";
 
 // ── Slash Commands ──────────────────────────────────────
 
@@ -120,7 +121,11 @@ const SLASH_COMMANDS: SlashCommand[] = [
 function HermesAvatar({ size = 30 }: { size?: number }): React.JSX.Element {
   return (
     <div className="chat-avatar chat-avatar-agent">
-      <div style={{ width: size, height: size, background: "#666", borderRadius: 4 }} />
+      <img
+        src={pohLogo}
+        alt="PoH"
+        style={{ width: size, height: size, borderRadius: 4, objectFit: "contain" }}
+      />
     </div>
   );
 }
