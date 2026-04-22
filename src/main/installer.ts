@@ -14,7 +14,7 @@ export const HERMES_HOME = _isWindows
 export const HERMES_REPO = join(HERMES_HOME, "hermes-agent");
 export const HERMES_VENV = join(HERMES_REPO, "venv");
 export const HERMES_PYTHON = join(HERMES_VENV, _isWindows ? "Scripts" : "bin", _isWindows ? "python.exe" : "python");
-export const HERMES_SCRIPT = join(HERMES_REPO, _isWindows ? "hermes.exe" : "hermes");
+export const HERMES_SCRIPT = join(HERMES_VENV, _isWindows ? "Scripts" : "bin", _isWindows ? "hermes.exe" : "hermes");
 export const HERMES_ENV_FILE = join(HERMES_HOME, ".env");
 export const HERMES_CONFIG_FILE = join(HERMES_HOME, "config.yaml");
 
