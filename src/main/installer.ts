@@ -5,10 +5,14 @@ import { homedir } from "os";
 import { getModelConfig } from "./config";
 import { stripAnsi } from "./utils";
 
-export const HERMES_HOME = join(homedir(), ".hermes");
+const _isWindows = process.platform === "win32";
+// Windows: %LOCALAPPDATA%\hermes  (e.g. C:\Users\f8785\AppData\Local\hermes)
+// Unix: ~/.hermes
+export const HERMES_HOME = _isWindows
+  ? join(process.env.LOCALAPPDATA || join(homedir(), "AppData", "Local"), "hermes")
+  : join(homedir(), ".hermes");
 export const HERMES_REPO = join(HERMES_HOME, "hermes-agent");
 export const HERMES_VENV = join(HERMES_REPO, "venv");
-const _isWindows = process.platform === "win32";
 export const HERMES_PYTHON = join(HERMES_VENV, _isWindows ? "Scripts" : "bin", _isWindows ? "python.exe" : "python");
 export const HERMES_SCRIPT = join(HERMES_REPO, _isWindows ? "hermes.exe" : "hermes");
 export const HERMES_ENV_FILE = join(HERMES_HOME, ".env");
