@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Plus, Trash, X, Eye, EyeOff, Refresh } from "../../assets/icons";
-import { PROVIDERS } from "../../constants";
+import { PROVIDERS, PROVIDER_BASE_URLS, PROVIDER_MODELS } from "../../constants";
 import { useI18n } from "../../components/useI18n";
 
 interface ModelConfig {
@@ -34,7 +34,7 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
   const [editingModel, setEditingModel] = useState<ModelConfig | null>(null);
 
   // Form state
-  const [formProvider, setFormProvider] = useState("minimax");
+  const [formProvider, setFormProvider] = useState("zhipu");
   const [formApiKey, setFormApiKey] = useState("");
   const [formModel, setFormModel] = useState("auto");
   const [formBaseUrl, setFormBaseUrl] = useState("");
@@ -93,10 +93,10 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
 
   function openAddModal(): void {
     setEditingModel(null);
-    setFormProvider("minimax");
+    setFormProvider("zhipu");
     setFormApiKey("");
     setFormModel("auto");
-    setFormBaseUrl("");
+    setFormBaseUrl(PROVIDER_BASE_URLS["zhipu"] || "");
     setFormName("");
     setFormError("");
     setShowApiKey(false);
@@ -356,10 +356,14 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
                   className="input"
                   value={formProvider}
                   onChange={(e) => {
-                    setFormProvider(e.target.value);
-                    if (e.target.value === "custom" && !formBaseUrl) {
-                      setFormBaseUrl("http://localhost:1234/v1");
+                    const provider = e.target.value;
+                    setFormProvider(provider);
+                    // Auto-fill base URL for the selected provider
+                    if (PROVIDER_BASE_URLS[provider]) {
+                      setFormBaseUrl(PROVIDER_BASE_URLS[provider]);
                     }
+                    // Reset model to auto when provider changes
+                    setFormModel("auto");
                   }}
                 >
                   {PROVIDERS.options
@@ -401,22 +405,14 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
                   onChange={(e) => setFormModel(e.target.value)}
                 >
                   <option value="auto">{t("models.auto")}</option>
-                  <option value="MiniMax-OpenChat-7B">MiniMax-OpenChat-7B</option>
-                  <option value="MiniMax-OpenChat-8B">MiniMax-OpenChat-8B</option>
-                  <option value="gpt-4o">GPT-4o</option>
-                  <option value="gpt-4o-mini">GPT-4o Mini</option>
-                  <option value="gpt-4-turbo">GPT-4 Turbo</option>
-                  <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
-                  <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
-                  <option value="qwen-plus">Qwen Plus</option>
-                  <option value="qwen-max">Qwen Max</option>
-                  <option value="qwen-turbo">Qwen Turbo</option>
+                  {(PROVIDER_MODELS[formProvider] || []).map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
                 </select>
                 <div className="settings-field-hint">{t("models.modelNameHint")}</div>
               </div>
 
-              {formProvider === "custom" && (
-                <div className="models-modal-field">
+              <div className="models-modal-field">
                   <label className="models-modal-label">{t("models.baseURL")}</label>
                   <input
                     className="input"
@@ -426,7 +422,6 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
                     placeholder={t("models.baseURLPlaceholder")}
                   />
                 </div>
-              )}
 
               {formError && <div className="models-error">{formError}</div>}
             </div>
