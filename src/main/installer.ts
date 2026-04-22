@@ -273,11 +273,11 @@ export async function runClawMigrate(
     });
 
     proc.stdout?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.stderr?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.on("close", (code) => {
@@ -330,11 +330,11 @@ export async function runHermesUpdate(
     });
 
     proc.stdout?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.stderr?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.on("close", (code) => {
@@ -463,11 +463,11 @@ export async function runInstall(
     });
 
     proc.stdout?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.stderr?.on("data", (data: Buffer) => {
-      emit(stripAnsi(data.toString()));
+      emit(stripAnsi(data.toString("utf-8")));
     });
 
     proc.on("close", (code) => {

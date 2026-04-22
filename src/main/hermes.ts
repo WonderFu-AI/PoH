@@ -188,7 +188,7 @@ function sendMessageViaApi(
       (res) => {
         let raw = "";
         res.on("data", (d) => {
-          raw += d.toString();
+          raw += d.toString("utf-8");
         });
         res.on("end", () => {
           try {
@@ -490,7 +490,7 @@ function sendMessageViaCli(
   let outputBuffer = "";
 
   function processOutput(raw: Buffer): void {
-    const text = stripAnsi(raw.toString());
+    const text = stripAnsi(raw.toString("utf-8"));
     outputBuffer += text;
 
     const sidMatch = outputBuffer.match(/session_id:\s*(\S+)/);

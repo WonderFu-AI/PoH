@@ -1,6 +1,6 @@
 {
   "name": "poh-desktop",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "PoH Desktop — Palace of Hermes, a friendly AI agent client",
   "main": "./out/main/index.js",
   "author": "WonderFu-AI",
