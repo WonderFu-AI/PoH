@@ -358,10 +358,8 @@ function Models({ profile }: { profile?: string }): React.JSX.Element {
                   onChange={(e) => {
                     const provider = e.target.value;
                     setFormProvider(provider);
-                    // Auto-fill base URL for the selected provider
-                    if (PROVIDER_BASE_URLS[provider]) {
-                      setFormBaseUrl(PROVIDER_BASE_URLS[provider]);
-                    }
+                    // Auto-fill base URL (including empty string for anthropic/nous)
+                    setFormBaseUrl(PROVIDER_BASE_URLS[provider] ?? "");
                     // Reset model to auto when provider changes
                     setFormModel("auto");
                   }}
