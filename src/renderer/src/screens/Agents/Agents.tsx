@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Plus, Trash, ChatBubble } from "../../assets/icons";
-import icon from "../../assets/icon.png";
+import icon from "../../assets/poh-logo.png";
 import { useI18n } from "../../components/useI18n";
 
 interface ProfileInfo {

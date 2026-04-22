@@ -5,7 +5,7 @@ import { APP_LOCALES } from "../../../../shared/i18n";
 import { THEME_OPTIONS } from "../../constants";
 import { Download, Upload, FileText, Plus, Trash } from "lucide-react";
 import { ChatBubble } from "../../assets/icons";
-import icon from "../../assets/icon.png";
+import icon from "../../assets/poh-logo.png";
 
 // Read cached values from localStorage for instant display
 function getCachedVersion(): string | null {
