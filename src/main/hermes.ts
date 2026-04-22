@@ -245,7 +245,6 @@ function sendMessageViaApi(
     }
     try {
       const parsed = JSON.parse(data);
-      console.log("[PoH] SSE parsed, choices[0].delta:", JSON.stringify(parsed.choices?.[0]?.delta)?.slice(0, 200));
 
       // Capture error responses forwarded through SSE
       if (parsed.error) {
@@ -276,7 +275,6 @@ function sendMessageViaApi(
           cb.onToolProgress(`${match[1]} ${match[2]}`);
         } else {
           hasContent = true;
-          console.log("[PoH] SSE chunk (first 100 chars):", delta.content.slice(0, 100));
           cb.onChunk(delta.content);
         }
       }
@@ -339,7 +337,6 @@ function sendMessageViaApi(
 
       res.on("data", (chunk: Buffer) => {
         const decoded = utf8Decoder.decode(chunk);
-        console.log("[PoH] Raw SSE chunk (hex prefix):", chunk.slice(0, 20).toString("hex"), "decoded length:", decoded.length);
         buffer += decoded;
         const parts = buffer.split("\n\n");
         buffer = parts.pop() || "";
