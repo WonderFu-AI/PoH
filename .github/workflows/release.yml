@@ -139,5 +139,5 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.TAG }}
           name: PoH ${{ steps.version.outputs.VERSION }}
-          draft: true
+          draft: false
           files: artifacts/*
