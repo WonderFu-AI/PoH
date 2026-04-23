@@ -4,6 +4,7 @@ import { join } from "path";
 import { homedir } from "os";
 import http from "http";
 import { TextDecoder } from "node:util";
+import Database from "better-sqlite3";
 import {
   HERMES_HOME,
   HERMES_REPO,
@@ -32,6 +33,26 @@ const URL_KEY_MAP: Array<{ pattern: RegExp; envKey: string }> = [
   { pattern: /openai\.com/i, envKey: "OPENAI_API_KEY" },
   { pattern: /huggingface\.co/i, envKey: "HF_TOKEN" },
 ];
+
+// Get the most recent session ID from Hermes DB (fallback when CLI output doesn't contain session_id)
+function getLastSessionId(): string | null {
+  const dbPath = join(HERMES_HOME, "state.db");
+  if (!existsSync(dbPath)) return null;
+  try {
+    const db = new Database(dbPath, { readonly: true });
+    const row = db
+      .prepare(
+        `SELECT id FROM sessions
+         WHERE source = 'desktop'
+         ORDER BY started_at DESC LIMIT 1`,
+      )
+      .get() as { id: string } | undefined;
+    db.close();
+    return row?.id || null;
+  } catch {
+    return null;
+  }
+}
 
 interface ChatHandle {
   abort: () => void;
@@ -420,6 +441,7 @@ function sendMessageViaCli(
     HOME: homedir(),
     HERMES_HOME: HERMES_HOME,
     PYTHONUNBUFFERED: "1",
+    PYTHONIOENCODING: "utf-8",
   };
 
   // Inject all API keys from the profile .env so the CLI can access them
@@ -516,7 +538,7 @@ function sendMessageViaCli(
 
   let stderrBuffer = "";
   proc.stderr?.on("data", (data: Buffer) => {
-    const text = stripAnsi(data.toString());
+    const text = stripAnsi(data.toString("utf-8"));
     if (
       !text.trim() ||
       text.includes("UserWarning") ||
@@ -539,8 +561,10 @@ function sendMessageViaCli(
   });
 
   proc.on("close", (code) => {
+    // Fallback: if sessionId wasn't captured from output, get the most recent one from DB
+    const finalSessionId = capturedSessionId || getLastSessionId();
     if (code === 0 || hasOutput) {
-      cb.onDone(capturedSessionId || undefined);
+      cb.onDone(finalSessionId || undefined);
     } else {
       const detail = stderrBuffer.trim();
       cb.onError(
@@ -695,6 +719,7 @@ export function startGateway(profile?: string): boolean {
     HOME: homedir(),
     HERMES_HOME: HERMES_HOME,
     API_SERVER_ENABLED: "true", // Ensure API server starts with gateway
+    PYTHONIOENCODING: "utf-8",
   };
 
   // Inject ALL profile API keys so the gateway can authenticate with any provider.

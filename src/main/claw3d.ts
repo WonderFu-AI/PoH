@@ -314,6 +314,7 @@ export async function setupClaw3d(
     PATH: getEnhancedPath(),
     HOME: homedir(),
     TERM: "dumb",
+    PYTHONIOENCODING: "utf-8",
   };
 
   // Step 1: Clone (or pull if already cloned)
@@ -333,10 +334,10 @@ export async function setupClaw3d(
       );
 
       proc.stdout?.on("data", (data: Buffer) => {
-        emit(1, "Cloning Claw3D repository...", stripAnsi(data.toString()));
+        emit(1, "Cloning Claw3D repository...", stripAnsi(data.toString("utf-8")));
       });
       proc.stderr?.on("data", (data: Buffer) => {
-        emit(1, "Cloning Claw3D repository...", stripAnsi(data.toString()));
+        emit(1, "Cloning Claw3D repository...", stripAnsi(data.toString("utf-8")));
       });
 
       proc.on("close", (code) => {
@@ -365,10 +366,10 @@ export async function setupClaw3d(
       });
 
       proc.stdout?.on("data", (data: Buffer) => {
-        emit(1, "Updating Claw3D...", stripAnsi(data.toString()));
+        emit(1, "Updating Claw3D...", stripAnsi(data.toString("utf-8")));
       });
       proc.stderr?.on("data", (data: Buffer) => {
-        emit(1, "Updating Claw3D...", stripAnsi(data.toString()));
+        emit(1, "Updating Claw3D...", stripAnsi(data.toString("utf-8")));
       });
 
       proc.on("close", (code) => {
@@ -391,10 +392,10 @@ export async function setupClaw3d(
     });
 
     proc.stdout?.on("data", (data: Buffer) => {
-      emit(2, "Installing dependencies...", stripAnsi(data.toString()));
+      emit(2, "Installing dependencies...", stripAnsi(data.toString("utf-8")));
     });
     proc.stderr?.on("data", (data: Buffer) => {
-      emit(2, "Installing dependencies...", stripAnsi(data.toString()));
+      emit(2, "Installing dependencies...", stripAnsi(data.toString("utf-8")));
     });
 
     proc.on("close", (code) => {
@@ -465,13 +466,13 @@ export function startDevServer(): boolean {
   if (proc.pid) writePid(DEV_PID_FILE, proc.pid);
 
   proc.stdout?.on("data", (data: Buffer) => {
-    devServerLogs += stripAnsi(data.toString());
+    devServerLogs += stripAnsi(data.toString("utf-8"));
     // Keep only last 2000 chars
     if (devServerLogs.length > 2000) devServerLogs = devServerLogs.slice(-2000);
   });
 
   proc.stderr?.on("data", (data: Buffer) => {
-    const text = stripAnsi(data.toString());
+    const text = stripAnsi(data.toString("utf-8"));
     devServerLogs += text;
     if (devServerLogs.length > 2000) devServerLogs = devServerLogs.slice(-2000);
     // Capture real errors (not warnings)
@@ -539,12 +540,12 @@ export function startAdapter(): boolean {
   if (proc.pid) writePid(ADAPTER_PID_FILE, proc.pid);
 
   proc.stdout?.on("data", (data: Buffer) => {
-    adapterLogs += stripAnsi(data.toString());
+    adapterLogs += stripAnsi(data.toString("utf-8"));
     if (adapterLogs.length > 2000) adapterLogs = adapterLogs.slice(-2000);
   });
 
   proc.stderr?.on("data", (data: Buffer) => {
-    const text = stripAnsi(data.toString());
+    const text = stripAnsi(data.toString("utf-8"));
     adapterLogs += text;
     if (adapterLogs.length > 2000) adapterLogs = adapterLogs.slice(-2000);
     if (

@@ -212,9 +212,9 @@ export function runHermesDoctor(): string {
       stdio: ["ignore", "pipe", "pipe"],
       timeout: 30000,
     });
-    return stripAnsi(output.toString());
+    return stripAnsi(output.toString("utf-8"));
   } catch (err) {
-    const stderr = (err as { stderr?: Buffer }).stderr?.toString() || "";
+    const stderr = (err as { stderr?: Buffer }).stderr?.toString("utf-8") || "";
     return stripAnsi(stderr) || "Doctor check failed.";
   }
 }
@@ -325,6 +325,7 @@ export async function runHermesUpdate(
         HOME: homedir(),
         HERMES_HOME,
         TERM: "dumb",
+        PYTHONIOENCODING: "utf-8",
       },
       stdio: ["ignore", "pipe", "pipe"],
     });
